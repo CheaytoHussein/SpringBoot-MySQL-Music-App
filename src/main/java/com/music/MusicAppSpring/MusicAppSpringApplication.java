@@ -8,19 +8,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MusicAppSpringApplication implements CommandLineRunner {
+public class MusicAppSpringApplication{
 	@Autowired
 	SongRepo songRepo;
 	public static void main(String[] args) {
 		SpringApplication.run(MusicAppSpringApplication.class, args);
 	}
-	@Override
-	public void run(String... args){
-		Song lady = new Song("lady",1000, "pop", 145);
-		songRepo.save(lady);
-
-		songRepo.findBySongName("lady").forEach(
-				val -> System.out.println(val)
-		);
-	}
+//	@Override
+//	public void run(String... args){
+//		Song lady = new Song("lady",1000, "pop", 145);
+//		songRepo.save(lady);
+//
+//		songRepo.findBySongName("lady").forEach(
+//				val -> System.out.println(val)
+//		);
+//	}
 }

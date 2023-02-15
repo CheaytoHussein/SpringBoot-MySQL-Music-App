@@ -1,36 +1,50 @@
 package com.music.MusicAppSpring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private long plays = 0;
-    private String genre;
-    private int duration;
+    private Integer Id;
     private String songName;
+    private String releaseDate;
+    private String cover;
+    private int duration;
+    private long plays = 0;
+
     public Song(){
 
     }
-    public Song(String songName, long plays, String genre, int duration) {
+
+    public Song(
+        String songName,
+        String releaseDate,
+        String cover,
+        int duration, long plays
+    ) {
         this.songName = songName;
-        this.plays = plays;
-        this.genre = genre;
+        this.releaseDate = releaseDate;
+        this.cover = cover;
         this.duration = duration;
+        this.plays = plays;
     }
-    @Override
-    public String toString() {
-        return "Song{" +
-                "id=" + id +
-                ", plays=" + plays +
-                ", genre='" + genre + '\'' +
-                ", duration=" + duration +
-                '}';
+    @ManyToMany
+    @JoinTable(
+            name = "ArtistToSong",
+            joinColumns = @JoinColumn(name = "song_Id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_Id")
+    )
+    List<Artist> songArtists = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "album_id", nullable = false)
+    Album album;
+    public void addArtist(Artist artist){
+        songArtists.add(artist);
     }
     public String getSongName() {
         return songName;
@@ -39,20 +53,21 @@ public class Song {
     public void setSongName(String songName) {
         this.songName = songName;
     }
-    public long getPlays() {
-        return plays;
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setPlays(int plays) {
-        this.plays = plays;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getCover(){
+        return cover;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setCover(String cover){
+        this.cover = cover;
     }
 
     public int getDuration() {
@@ -61,6 +76,14 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public long getPlays() {
+        return plays;
+    }
+
+    public void setPlays(long plays) {
+        this.plays = plays;
     }
 
 }

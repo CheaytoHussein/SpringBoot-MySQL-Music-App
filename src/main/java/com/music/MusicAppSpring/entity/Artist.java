@@ -32,8 +32,8 @@ public class Artist {
 
     }
     public Artist(
-            String artistName, int songCount, int albumCount,
-            long plays, String description, String cover
+            String artistName, String description, String cover,
+            int songCount, int albumCount, long plays
     ) {
         this.artistName = artistName;
         this.songCount = songCount;

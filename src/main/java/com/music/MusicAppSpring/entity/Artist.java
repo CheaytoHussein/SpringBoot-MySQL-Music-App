@@ -1,7 +1,6 @@
 package com.music.MusicAppSpring.entity;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class Artist {
     private int songCount;
     private int albumCount;
     private long plays;
+    @Lob
     private String description;
     private String cover;
     @Override
@@ -43,9 +43,21 @@ public class Artist {
         this.cover = cover;
     }
     @ManyToMany(mappedBy = "albumArtists")
-    List<Album> albums = new ArrayList<>();
+    private List<Album> albums = new ArrayList<>();
     @ManyToMany(mappedBy = "songArtists")
-    List<Song> songs = new ArrayList<>();
+    private List<Song> songs = new ArrayList<>();
+    public void addAlbum(Album album){
+        albums.add(album);
+    }
+    public String getAlbums(){
+        return albums.toString();
+    }
+    public void addSong(Song song){
+        songs.add(song);
+    }
+    public String getSongs(){
+        return songs.toString();
+    }
     public String getArtistName() {
         return artistName;
     }

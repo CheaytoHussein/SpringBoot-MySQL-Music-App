@@ -38,11 +38,11 @@ public class Song {
             joinColumns = @JoinColumn(name = "song_Id"),
             inverseJoinColumns = @JoinColumn(name = "artist_Id")
     )
-    List<Artist> songArtists = new ArrayList<>();
+    private List<Artist> songArtists = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "album_id", nullable = false)
-    Album album;
+//    @JoinColumn(name = "album_id", nullable = false)
+    private Album album;
     public void addArtist(Artist artist){
         songArtists.add(artist);
     }

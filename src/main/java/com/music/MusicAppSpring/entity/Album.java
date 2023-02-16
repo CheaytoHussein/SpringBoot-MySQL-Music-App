@@ -40,10 +40,10 @@ public class Album {
             joinColumns = @JoinColumn(name = "album_Id"),
             inverseJoinColumns = @JoinColumn(name = "artist_Id")
     )
-    List<Artist> albumArtists = new ArrayList<>();
+    private List<Artist> albumArtists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "album")
-    List<Song> albumSongs = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
+    private List<Song> albumSongs = new ArrayList<>();
 
     public Album(
             String albumName, String genre, String releaseDate,

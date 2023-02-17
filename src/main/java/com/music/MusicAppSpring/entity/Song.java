@@ -1,11 +1,15 @@
 package com.music.MusicAppSpring.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter @Setter @ToString
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,50 +44,16 @@ public class Song {
     )
     private List<Artist> songArtists = new ArrayList<>();
 
-    @ManyToOne
-//    @JoinColumn(name = "album_id", nullable = false)
-    private Album album;
     public void addArtist(Artist artist){
         songArtists.add(artist);
     }
-    public String getSongName() {
-        return songName;
+    public String getArtists(){
+        return songArtists.toString();
     }
-
-    public void setSongName(String songName) {
-        this.songName = songName;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getCover(){
-        return cover;
-    }
-
-    public void setCover(String cover){
-        this.cover = cover;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public long getPlays() {
-        return plays;
-    }
-
-    public void setPlays(long plays) {
-        this.plays = plays;
+    @ManyToOne
+    private Album album;
+    public void setAlbum(Album album){
+        this.album = album;
     }
 
 }

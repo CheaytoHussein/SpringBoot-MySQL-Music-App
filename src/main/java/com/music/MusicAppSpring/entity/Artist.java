@@ -21,7 +21,7 @@ public class Artist {
     @Lob
     private String description;
     private String cover;
-    
+
     public Artist() {
 
     }
@@ -40,21 +40,18 @@ public class Artist {
 
     @ManyToMany(mappedBy = "albumArtists")
     private List<Album> albums = new ArrayList<>();
-    @ManyToMany(mappedBy = "songArtists")
-    private List<Song> songs = new ArrayList<>();
-
     public void addAlbum(Album album) {
         albums.add(album);
     }
-
     public String getAlbums() {
         return albums.toString();
     }
 
+    @ManyToMany(mappedBy = "songArtists")
+    private List<Song> songs = new ArrayList<>();
     public void addSong(Song song) {
         songs.add(song);
     }
-
     public String getSongs() {
         return songs.toString();
     }

@@ -1,4 +1,4 @@
-package com.music.MusicAppSpring.entity;
+package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,26 +13,29 @@ import java.util.List;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Integer artistId;
     private String artistName;
     private int songCount;
     private int albumCount;
     private long plays;
     @Lob
+    @Column(length = 512)
     private String description;
     private String cover;
+    private String genre;
 
     public Artist() {
 
     }
 
     public Artist(
-            String artistName, String description, String cover,
+            String artistName, String description, String cover, String genre,
             int songCount, int albumCount, long plays
-    ) {
+    ){
         this.artistName = artistName;
         this.songCount = songCount;
         this.albumCount = albumCount;
+        this.genre = genre;
         this.plays = plays;
         this.description = description;
         this.cover = cover;
@@ -43,8 +46,8 @@ public class Artist {
     public void addAlbum(Album album) {
         albums.add(album);
     }
-    public String getAlbums() {
-        return albums.toString();
+    public List<Album> getAlbums() {
+        return albums;
     }
 
     @ManyToMany(mappedBy = "songArtists")
@@ -52,8 +55,8 @@ public class Artist {
     public void addSong(Song song) {
         songs.add(song);
     }
-    public String getSongs() {
-        return songs.toString();
+    public List<Song> getSongs() {
+        return songs;
     }
 
 }

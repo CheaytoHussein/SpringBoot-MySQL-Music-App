@@ -1,7 +1,8 @@
-package com.music.MusicAppSpring.entity;
+package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -12,8 +13,8 @@ import java.util.List;
 @Getter @Setter @ToString
 public class Album {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer albumId;
     private String albumName;
     private String genre;
     private String releaseDate;
@@ -24,10 +25,10 @@ public class Album {
     public Album(){
 
     }
-    public Album(
-            String albumName, String genre, String releaseDate,
-            String cover, int tracks, long albumPlays, int duration
-    ) {
+        public Album(
+                String albumName, String genre, String releaseDate,
+                String cover, int tracks, long albumPlays, int duration
+        ) {
         this.albumName = albumName;
         this.genre = genre;
         this.releaseDate = releaseDate;
@@ -47,8 +48,8 @@ public class Album {
     public void addAlbumArtist(Artist artist){
         albumArtists.add(artist);
     }
-    public String getAlbumArtists(){
-        return albumArtists.toString();
+    public List<Artist> getAlbumArtists(){
+        return albumArtists;
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "album")
@@ -56,8 +57,9 @@ public class Album {
     public void addAlbumSong(Song song){
         albumSongs.add(song);
     }
-    public String getAlbumSongs(){
-        return albumSongs.toString();
+    public
+    List<Song> getAlbumSongs(){
+        return albumSongs;
     }
 
 }

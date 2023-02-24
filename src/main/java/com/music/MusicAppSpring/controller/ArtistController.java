@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(
-        origins = "http://localhost:8080"
-)
+
 @RestController
 @RequestMapping("/api/artists")
+@CrossOrigin
 public class ArtistController {
     @Autowired
     private ArtistRepo artistRepo;
+
     @GetMapping
     public Iterable<Artist> getAllArtists(){
         return this.artistRepo.findAll();

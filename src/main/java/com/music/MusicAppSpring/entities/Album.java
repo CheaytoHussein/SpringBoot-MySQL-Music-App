@@ -2,7 +2,6 @@ package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 

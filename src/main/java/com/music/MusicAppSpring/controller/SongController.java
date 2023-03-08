@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SongController{
     @Autowired
     private SongRepo songRepo;
+
     @GetMapping
     public Iterable<Song> getAllSongs(){
         return this.songRepo.findAll();
@@ -36,6 +37,7 @@ public class SongController{
         oldSong.setAlbum(song.getAlbum());
         oldSong.setDuration(song.getDuration());
         oldSong.setCover(song.getCover());
+        oldSong.setYoutubeLink(song.getYoutubeLink());
         oldSong.setPlays(song.getPlays());
         oldSong.setGenre(song.getGenre());
 
@@ -47,49 +49,4 @@ public class SongController{
         this.songRepo.delete(song);
         return ResponseEntity.ok().build();
     }
-//======================================================================================================================
-//    ARTIST API METHODS : GET | POST | PUT | DELETE
-//======================================================================================================================
-
-//    @GetMapping("/artists/{id}")
-//    public Artist getArtistById( @PathVariable(value = "id") Integer id){
-//        return this.artistRepo.findByArtistId(id);
-//    }
-//    @GetMapping("/artists/{id}")
-//    public List<Artist> getArtistByName(String name){
-//        return this.artistRepo.findByArtistName(name);
-//    }
-//
-//    @PostMapping
-//    public Artist createArtist(@RequestBody Artist artist){
-//        return this.artistRepo.save(artist);
-//    }
-//    @PutMapping("/artists/{id}")
-//    public Artist updateArtist(@RequestBody Artist artist, @PathVariable( value = "id" ) Integer id){
-//
-//        Artist oldArtist = this.artistRepo.findByArtistId(id);
-//
-//        oldArtist.setArtistName(artist.getArtistName());
-//        oldArtist.setAlbums(artist.getAlbums());
-//        oldArtist.setDescription(artist.getDescription());
-//        oldArtist.setCover(artist.getCover());
-//        oldArtist.setGenre(artist.getGenre());
-//        oldArtist.setPlays(artist.getPlays());
-//        oldArtist.setAlbumCount(artist.getAlbumCount());
-//        oldArtist.setSongs(artist.getSongs());
-//        oldArtist.setSongCount(artist.getSongCount());
-//
-//        return this.artistRepo.save(oldArtist);
-//    }
-//    @DeleteMapping("/artists/{id}")
-//    public ResponseEntity<Artist> deleteArtist( @PathVariable("id") Integer id){
-//        Artist artist = this.artistRepo.findByArtistId(id);
-//        this.artistRepo.delete(artist);
-//        return ResponseEntity.ok().build();
-//    }
-
-//======================================================================================================================
-//======================================================================================================================
-//======================================================================================================================
-
 }

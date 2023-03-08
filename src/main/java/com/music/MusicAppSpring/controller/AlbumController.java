@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/albums")
 @CrossOrigin
 public class AlbumController {
-
     @Autowired
     private AlbumRepo albumRepo;
 

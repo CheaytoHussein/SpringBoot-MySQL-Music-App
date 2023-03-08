@@ -18,6 +18,7 @@ public class Song {
     private String releaseDate;
     private String cover;
     private String genre;
+    private String youtubeLink;
     private int duration;
     private long plays = 0;
 
@@ -27,13 +28,14 @@ public class Song {
 
     public Song(
         String songName,
-        String releaseDate,
+        String releaseDate, String youtubeLink,
         String cover, String genre,
         int duration, long plays
     ) {
         this.songName = songName;
         this.genre = genre;
         this.releaseDate = releaseDate;
+        this.youtubeLink = youtubeLink;
         this.cover = cover;
         this.duration = duration;
         this.plays = plays;

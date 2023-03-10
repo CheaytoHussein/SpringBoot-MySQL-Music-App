@@ -1,12 +1,13 @@
 package com.music.MusicAppSpring.repositories;
 
 import com.music.MusicAppSpring.entities.Song;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface SongRepo extends CrudRepository<Song, Integer> {
+public interface SongRepo extends JpaRepository<Song, Integer> {
     List<Song> findBySongName(String songName);
     Song findBySongId(Integer id);
     @Query("SELECT song FROM Song song WHERE " +

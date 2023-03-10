@@ -12,16 +12,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
-public class MusicAppSpringApplication implements CommandLineRunner{
+public class MusicAppSpringApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(MusicAppSpringApplication.class, args);
 	}
-	@Autowired
-	SongRepo songrepo;
-	@Override
-	public void run(String... args){
-		Song song = songrepo.findBySongId(19);
-		song.setYoutubeLink("https://youtu.be/Dm9Zf1WYQ_A");
-		songrepo.save(song);
-	}
+//	@Autowired
+//	SongRepo songrepo;
+//	@Override
+//	public void run(String... args){
+//
+//	}
 }

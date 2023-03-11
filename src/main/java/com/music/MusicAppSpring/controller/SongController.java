@@ -1,10 +1,12 @@
 package com.music.MusicAppSpring.controller;
 
 import com.music.MusicAppSpring.entities.Song;
-import com.music.MusicAppSpring.repositories.SongRepo;
+import com.music.MusicAppSpring.services.impls.SongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -12,41 +14,31 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class SongController{
     @Autowired
-    private SongRepo songRepo;
+    private final SongServiceImpl songService;
+
+    public SongController(SongServiceImpl songService) {
+        this.songService = songService;
+    }
 
     @GetMapping
-    public Iterable<Song> getAllSongs(){
-        return this.songRepo.findAll();
+    public List<Song> getAllSongs(){
+        return songService.getAllElements();
     }
     @GetMapping("/{id}")
     public Song getSongById( @PathVariable(value = "id") Integer id){
-        return this.songRepo.findBySongId(id);
+        return songService.getElementById(id);
     }
     @PostMapping("/post")
     public Song createSong(@RequestBody Song song){
-        return this.songRepo.save(song);
+        return songService.saveElement(song);
     }
     @PutMapping("/{id}")
     public Song updateSong(@RequestBody Song song, @PathVariable( value = "id" ) Integer id){
-
-        Song oldSong = this.songRepo.findBySongId(id);
-
-        oldSong.setSongArtists(song.getArtists());
-        oldSong.setSongName(song.getSongName());
-        oldSong.setReleaseDate(song.getReleaseDate());
-        oldSong.setAlbum(song.getAlbum());
-        oldSong.setDuration(song.getDuration());
-        oldSong.setCover(song.getCover());
-        oldSong.setYoutubeLink(song.getYoutubeLink());
-        oldSong.setPlays(song.getPlays());
-        oldSong.setGenre(song.getGenre());
-
-        return this.songRepo.save(oldSong);
+        return songService.updateElement(song, id);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Song> deleteSong( @PathVariable("id") Integer id){
-        Song song = this.songRepo.findBySongId(id);
-        this.songRepo.delete(song);
+        songService.deleteElement(id);
         return ResponseEntity.ok().build();
     }
 }

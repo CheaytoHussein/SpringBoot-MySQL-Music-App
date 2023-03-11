@@ -2,48 +2,43 @@ package com.music.MusicAppSpring.controller;
 
 
 import com.music.MusicAppSpring.entities.Album;
-import com.music.MusicAppSpring.repositories.AlbumRepo;
+import com.music.MusicAppSpring.services.impls.AlbumServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/albums")
 @CrossOrigin
 public class AlbumController {
     @Autowired
-    private AlbumRepo albumRepo;
+    private final AlbumServiceImpl albumService;
+
+    public AlbumController(AlbumServiceImpl albumService) {
+        this.albumService = albumService;
+    }
 
     @GetMapping
-    public Iterable<Album> getAllAlbums(){
-        return this.albumRepo.findAll();
+    public List<Album> getAllAlbums(){
+        return albumService.getAllElements();
     }
     @GetMapping("/{id}")
     public Album getAlbumById(@PathVariable(value = "id") Integer id){
-        return this.albumRepo.findByAlbumId(id);
+        return albumService.getElementById(id);
     }
     @PostMapping("/post")
     public Album createAlbum(@RequestBody Album album){
-        return this.albumRepo.save(album);
+        return albumService.saveElement(album);
     }
     @PutMapping("/{id}")
     public Album updateAlbum(@RequestBody Album album, @PathVariable(value = "id") Integer id){
-        Album oldAlbum = this.albumRepo.findByAlbumId(id);
-
-        oldAlbum.setAlbumName(album.getAlbumName());
-        oldAlbum.setAlbumPlays(album.getAlbumPlays());
-        oldAlbum.setAlbumArtists(album.getAlbumArtists());
-        oldAlbum.setAlbumSongs(album.getAlbumSongs());
-        oldAlbum.setGenre(album.getGenre());
-        oldAlbum.setDuration(album.getDuration());
-        oldAlbum.setTracks(album.getTracks());
-        oldAlbum.setCover(album.getCover());
-
-        return this.albumRepo.save(oldAlbum);
+        return albumService.updateElement(album, id);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Album> deleteAlbum(@PathVariable(value = "id") Integer id){
-        this.albumRepo.deleteById(id);
+        albumService.deleteElement(id);
         return ResponseEntity.ok().build();
     }
 }

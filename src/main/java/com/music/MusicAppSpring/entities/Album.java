@@ -1,42 +1,28 @@
 package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter @ToString @NoArgsConstructor @RequiredArgsConstructor
 public class Album {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer albumId;
+    @NonNull
     private String albumName;
+    @NonNull
     private String genre;
+    @NonNull
     private String releaseDate;
+    @NonNull
     private String cover;
-    private int tracks;
+    private int tracks = 0;
     private long albumPlays = 0;
-    private int duration;
-    public Album(){
-
-    }
-        public Album(
-                String albumName, String genre, String releaseDate,
-                String cover, int tracks, long albumPlays, int duration
-        ) {
-        this.albumName = albumName;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-        this.cover = cover;
-        this.tracks = tracks;
-        this.albumPlays = albumPlays;
-        this.duration = duration;
-    }
-
+    private int duration = 0;
     @ManyToMany
     @JoinTable(
             name = "ArtistToAlbum",
@@ -55,10 +41,14 @@ public class Album {
     private List<Song> albumSongs = new ArrayList<>();
     public void addAlbumSong(Song song){
         albumSongs.add(song);
+        this.duration += song.getDuration();
+        this.tracks = albumSongs.size();
     }
-    public
-    List<Song> getAlbumSongs(){
+    public List<Song> getAlbumSongs(){
         return albumSongs;
     }
 
+    public void incrementPlays(){
+        albumPlays++;
+    }
 }

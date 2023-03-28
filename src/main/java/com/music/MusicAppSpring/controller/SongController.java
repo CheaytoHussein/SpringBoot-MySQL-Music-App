@@ -32,12 +32,16 @@ public class SongController{
     public Song createSong(@RequestBody Song song){
         return songService.saveElement(song);
     }
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Song updateSong(@RequestBody Song song, @PathVariable( value = "id" ) Integer id){
         return songService.updateElement(song, id);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Song> deleteSong( @PathVariable("id") Integer id){
+    @PutMapping("/play/{id}")
+    public void incrementSongPlays(@PathVariable(value = "id") Integer id){
+        songService.incrementPlays(id);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Song> deleteSong( @PathVariable( value = "id") Integer id){
         songService.deleteElement(id);
         return ResponseEntity.ok().build();
     }

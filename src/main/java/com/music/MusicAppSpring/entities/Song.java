@@ -1,45 +1,30 @@
 package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter @ToString @NoArgsConstructor @RequiredArgsConstructor
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer songId;
+    @NonNull
     private String songName;
+    @NonNull
     private String releaseDate;
+    @NonNull
     private String cover;
+    @NonNull
     private String genre;
+    @NonNull
     private String youtubeLink;
+    @NonNull
     private int duration;
     private long plays = 0;
-
-    public Song(){
-
-    }
-
-    public Song(
-        String songName,
-        String releaseDate, String youtubeLink,
-        String cover, String genre,
-        int duration, long plays
-    ) {
-        this.songName = songName;
-        this.genre = genre;
-        this.releaseDate = releaseDate;
-        this.youtubeLink = youtubeLink;
-        this.cover = cover;
-        this.duration = duration;
-        this.plays = plays;
-    }
     @ManyToMany
     @JoinTable(
             name = "ArtistToSong",
@@ -60,4 +45,12 @@ public class Song {
         this.album = album;
     }
 
+    public void incrementPlays(){
+        plays++;
+        if(album != null) this.album.incrementPlays();
+        if(songArtists.size() != 0) {
+            for (Artist artist : this.songArtists)
+                artist.incrementPlays();
+        }
+    }
 }

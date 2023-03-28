@@ -1,50 +1,36 @@
 package com.music.MusicAppSpring.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter @ToString
+@Getter @Setter @ToString @NoArgsConstructor @RequiredArgsConstructor
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer artistId;
+    @NonNull
     private String artistName;
-    private int songCount;
-    private int albumCount;
-    private long plays;
+    private int songCount = 0;
+    private int albumCount = 0;
+    private long plays = 0;
+    @NonNull
     @Lob
     @Column(length = 512)
     private String description;
+    @NonNull
     private String cover;
+    @NonNull
     private String genre;
-
-    public Artist() {
-
-    }
-
-    public Artist(
-            String artistName, String description, String cover, String genre,
-            int songCount, int albumCount, long plays
-    ){
-        this.artistName = artistName;
-        this.songCount = songCount;
-        this.albumCount = albumCount;
-        this.genre = genre;
-        this.plays = plays;
-        this.description = description;
-        this.cover = cover;
-    }
 
     @ManyToMany(mappedBy = "albumArtists")
     private List<Album> albums = new ArrayList<>();
     public void addAlbum(Album album) {
         albums.add(album);
+        this.albumCount = albums.size();
     }
     public List<Album> getAlbums() {
         return albums;
@@ -54,9 +40,13 @@ public class Artist {
     private List<Song> songs = new ArrayList<>();
     public void addSong(Song song) {
         songs.add(song);
+        this.songCount = songs.size();
     }
     public List<Song> getSongs() {
         return songs;
+    }
+    public void incrementPlays(){
+        plays++;
     }
 
 }

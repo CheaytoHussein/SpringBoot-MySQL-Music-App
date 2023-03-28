@@ -12,6 +12,10 @@ import java.util.List;
 public class SongServiceImpl implements CRUDService<Song, Integer> {
     @Autowired
     private final SongRepo songRepo;
+    public void incrementPlays(Integer id){
+        songRepo.findBySongId(id).incrementPlays();
+        songRepo.save(songRepo.findBySongId(id));
+    }
     public SongServiceImpl(SongRepo songRepo){
         this.songRepo = songRepo;
     }

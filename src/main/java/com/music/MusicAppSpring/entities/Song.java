@@ -46,11 +46,6 @@ public class Song {
     }
 
     public void incrementPlays(){
-        plays++;
-        if(album != null) this.album.incrementPlays();
-        if(songArtists.size() != 0) {
-            for (Artist artist : this.songArtists)
-                artist.incrementPlays();
-        }
+        this.plays++;
     }
 }

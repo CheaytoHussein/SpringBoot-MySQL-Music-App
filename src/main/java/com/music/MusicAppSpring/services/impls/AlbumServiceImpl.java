@@ -36,12 +36,9 @@ public class AlbumServiceImpl implements CRUDService<Album,Integer> {
         Album oldAlbum = albumRepo.findByAlbumId(id);
 
         oldAlbum.setAlbumName(album.getAlbumName());
-        oldAlbum.setAlbumPlays(album.getAlbumPlays());
         oldAlbum.setAlbumArtists(album.getAlbumArtists());
         oldAlbum.setAlbumSongs(album.getAlbumSongs());
         oldAlbum.setGenre(album.getGenre());
-        oldAlbum.setDuration(album.getDuration());
-        oldAlbum.setTracks(album.getTracks());
         oldAlbum.setCover(album.getCover());
 
         return albumRepo.save(oldAlbum);

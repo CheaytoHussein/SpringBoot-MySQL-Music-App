@@ -20,9 +20,6 @@ public class Album {
     private String releaseDate;
     @NonNull
     private String cover;
-    private int tracks = 0;
-    private long albumPlays = 0;
-    private int duration = 0;
     @ManyToMany
     @JoinTable(
             name = "ArtistToAlbum",
@@ -41,14 +38,8 @@ public class Album {
     private List<Song> albumSongs = new ArrayList<>();
     public void addAlbumSong(Song song){
         albumSongs.add(song);
-        this.duration += song.getDuration();
-        this.tracks = albumSongs.size();
     }
     public List<Song> getAlbumSongs(){
         return albumSongs;
-    }
-
-    public void incrementPlays(){
-        albumPlays++;
     }
 }

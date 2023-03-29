@@ -34,12 +34,9 @@ public class ArtistServiceImpl implements CRUDService<Artist, Integer> {
         oldArtist.setArtistName(artist.getArtistName());
         oldArtist.setSongs(artist.getSongs());
         oldArtist.setCover(artist.getCover());
-        oldArtist.setPlays(artist.getPlays());
-        oldArtist.setSongCount(artist.getSongCount());
         oldArtist.setGenre(artist.getGenre());
         oldArtist.setDescription(artist.getDescription());
         oldArtist.setAlbums(artist.getAlbums());
-        oldArtist.setAlbumCount(artist.getAlbumCount());
 
         return artistRepo.save(oldArtist);
     }

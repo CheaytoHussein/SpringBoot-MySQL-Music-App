@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
+@Repository
 public interface AlbumRepo extends JpaRepository<Album, Integer> {
     List<Album> findByAlbumName(String albumName);
     Album findByAlbumId(Integer id);

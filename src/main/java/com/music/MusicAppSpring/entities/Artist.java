@@ -14,9 +14,6 @@ public class Artist {
     private Integer artistId;
     @NonNull
     private String artistName;
-    private int songCount = 0;
-    private int albumCount = 0;
-    private long plays = 0;
     @NonNull
     @Lob
     @Column(length = 512)
@@ -30,7 +27,6 @@ public class Artist {
     private List<Album> albums = new ArrayList<>();
     public void addAlbum(Album album) {
         albums.add(album);
-        this.albumCount = albums.size();
     }
     public List<Album> getAlbums() {
         return albums;
@@ -40,13 +36,9 @@ public class Artist {
     private List<Song> songs = new ArrayList<>();
     public void addSong(Song song) {
         songs.add(song);
-        this.songCount = songs.size();
     }
     public List<Song> getSongs() {
         return songs;
-    }
-    public void incrementPlays(){
-        plays++;
     }
 
 }
